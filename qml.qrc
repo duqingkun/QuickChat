@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>avatar/wechat.png</file>
+        <file>avatar/alipay.png</file>
+        <file>avatar/中国银行.png</file>
     </qresource>
 </RCC>
