@@ -2,7 +2,7 @@
 
 ContactModel::ContactModel(QObject *parent)
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
     mRoleNames[IdRole] = "id";
     mRoleNames[AvatarRole] = "avatar";
     mRoleNames[NicknameRole] = "nickname";
@@ -23,12 +23,30 @@ void ContactModel::insert(int index, int id, const QString &avatar, const QStrin
     item.lastMessage = lastMsg;
     item.datetime = datetime;
     mContacts.insert(0, item);
+    mBackup.insert(0, item);
     endInsertRows();
+}
+
+void ContactModel::append(int id, const QString &avatar, const QString &nickname, const QString &lastMsg, const QString &datetime)
+{
+    insert(mContacts.count(), id, avatar, nickname, lastMsg, datetime);
+}
+
+void ContactModel::filter(const QString &nickname)
+{
+    beginResetModel();
+    mContacts.clear();
+    foreach (Contact item, mBackup) {
+        if(item.nickname.indexOf(nickname) >= 0){
+            mContacts.append(item);
+        }
+    }
+    endResetModel();
 }
 
 int ContactModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
     return mContacts.count();
 }
 

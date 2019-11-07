@@ -32,6 +32,8 @@ public:
 
 public slots:
     void insert(int index, int id, const QString& avatar, const QString& nickname, const QString& lastMsg, const QString& datetime);
+    void append(int id, const QString& avatar, const QString& nickname, const QString& lastMsg, const QString& datetime);
+    void filter(const QString &nickname);
 
 public:
     virtual int rowCount(const QModelIndex &parent) const;
@@ -43,6 +45,7 @@ public:
 
 private:
     QList<Contact> mContacts;
+    QList<Contact> mBackup;
     QHash<int, QByteArray> mRoleNames;
 };
 
