@@ -4,7 +4,7 @@ Component{
     id: delegate
 
     Rectangle{
-        id: root
+        id: wrapper
         width: ListView.view.width
         height: 60
         color: ListView.isCurrentItem ? selectedColor : (hovered ? hoverColor : nomalColor)
@@ -59,9 +59,7 @@ Component{
             hoverEnabled: true
             onEntered: parent.hovered = true
             onExited: parent.hovered = false
-            //onClicked: console.log(ListView.view.width)
+            onClicked: wrapper.ListView.view.currentIndex = index
         }
-
-        Component.onCompleted: console.log(ListView.view.currentIndex)
     }
 }

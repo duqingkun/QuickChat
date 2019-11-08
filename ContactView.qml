@@ -31,7 +31,7 @@ Item{
             clip: true
 
             Component.onCompleted: {
-                view.currentIndex = -1
+                view.currentIndex = 2
             }
         }
     }
