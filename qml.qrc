@@ -8,5 +8,6 @@
         <file>ContactDelegate.qml</file>
         <file>image/clear.png</file>
         <file>image/search.png</file>
+        <file>Search.qml</file>
     </qresource>
 </RCC>

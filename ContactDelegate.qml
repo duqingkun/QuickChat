@@ -1,59 +1,67 @@
 import QtQuick 2.0
 
-Item{
-    id: root
-
-    property alias color: background.color
-
-    property int userId
-    property string avatar
-    property string nickname
-    property string lastMsg
-    property string datetime
+Component{
+    id: delegate
 
     Rectangle{
-        id: background
-        width: parent.width
-        height: parent.height
+        id: root
+        width: ListView.view.width
+        height: 60
+        color: ListView.isCurrentItem ? selectedColor : (hovered ? hoverColor : nomalColor)
+
+        property bool hovered: false
+        property color nomalColor: "#f1f1f1"
+        property color selectedColor: "#ddd"
+        property color hoverColor: "#eee"
 
         Rectangle{
             anchors.fill: parent
             anchors.margins: 10
             color: parent.color
             Image{
-                id: avatar
+                id: pic
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 width: height
-                source: root.avatar
+                source: avatar
             }
             Text {
-                id: nickname
+                id: name
                 anchors.top: parent.top
-                anchors.left: avatar.right
+                anchors.left: pic.right
                 anchors.topMargin: 3
                 anchors.leftMargin: 10
                 font.bold: true
                 font.pixelSize: 16
-                text: root.nickname
+                text: nickname
             }
             Text {
-                id: lastMsg
-                anchors.left: nickname.left
+                id: lastMessage
+                anchors.left: name.left
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: 3
-                anchors.right: datetime.right
+                anchors.right: dt.right
                 elide: Text.ElideRight
-                text: root.lastMsg
+                text: lastMsg
                 color: "gray"
             }
             Text {
-                id: datetime
+                id: dt
                 anchors.right: parent.right
-                anchors.top: avatar.top
-                text: root.datetime
+                anchors.top: pic.top
+                text: datetime
             }
         }
+
+        MouseArea{
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: parent.hovered = true
+            onExited: parent.hovered = false
+            //onClicked: console.log(ListView.view.width)
+        }
+
+        Component.onCompleted: console.log(ListView.view.currentIndex)
     }
 }
