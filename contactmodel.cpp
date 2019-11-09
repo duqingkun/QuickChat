@@ -1,5 +1,7 @@
 #include "contactmodel.h"
 
+#include <QDebug>
+
 ContactModel::ContactModel(QObject *parent)
 {
     Q_UNUSED(parent)
@@ -22,8 +24,8 @@ void ContactModel::insert(int index, int id, const QString &avatar, const QStrin
     item.nickname = nickname;
     item.lastMessage = lastMsg;
     item.datetime = datetime;
-    mContacts.insert(0, item);
-    mBackup.insert(0, item);
+    mContacts.insert(index, item);
+    mBackup.insert(index, item);
     endInsertRows();
 }
 
@@ -56,6 +58,7 @@ QVariant ContactModel::data(const QModelIndex &index, int role) const
     if(row < 0 || row >= mContacts.count()){
         return QVariant();
     }
+
     Contact contact = mContacts.at(row);
     switch (role) {
     case IdRole: return contact.userId;
